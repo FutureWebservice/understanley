@@ -1,0 +1,22 @@
+Understanley
+============
+
+This application is an independent native macOS port of **Understand Anything**.
+
+    Understand Anything
+    https://github.com/Egonex-AI/Understand-Anything
+    Copyright (c) 2026 Yuxiang Lin
+    Copyright (c) 2026 Infinite Universe, Inc.
+    Created by Lum1104 (https://github.com/Lum1104)
+    Maintained under Egonex-AI (https://github.com/Egonex-AI)
+    Licensed under the MIT License
+
+Understanley reimplements Understand Anything's analysis pipeline and dashboard in
+Swift. No upstream source code is bundled or copied verbatim; the algorithms,
+the knowledge-graph schema, and the visual language are ported, and the on-disk
+format (`.ua/knowledge-graph.json`) is deliberately kept byte-compatible so
+graphs move freely between the two projects in either direction.
+
+Where this port diverges from upstream is documented in README.md.
+
+Understanley is not affiliated with or endorsed by Egonex-AI.

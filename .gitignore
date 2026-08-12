@@ -1,0 +1,8 @@
+.build/
+.swiftpm/
+*.xcodeproj
+Understanley.app/
+Understanley.dmg
+.DS_Store
+.preview/
+RELEASE_NOTES_*.md
