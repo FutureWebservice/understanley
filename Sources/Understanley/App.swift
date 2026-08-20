@@ -41,7 +41,7 @@ struct UnderstanleyApp: App {
             Foundation.exit(0)
         }
         if args.contains("--version") {
-            print("Understanley 0.1.0")
+            print("Understanley 0.1.1")
             Foundation.exit(0)
         }
         if let i = args.firstIndex(of: "--ondevice-probe"), i + 1 < args.count {

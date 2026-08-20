@@ -9,7 +9,7 @@ second, offline, with no account, no server and no AI required. It is a native M
 it, pick a folder, and the graph is there.
 
 **There is a ready-to-run
-[`Understanley.dmg`](https://github.com/FutureWebservice/understanley/releases/latest) — 2.4 MB — or
+[`Understanley.dmg`](https://github.com/FutureWebservice/understanley/releases/latest) — 2.5 MB — or
 you can build it from source in one command.** The DMG is not signed with a paid Apple certificate,
 so a *downloaded* copy needs one extra click the first time; see [Download](#download).
 
@@ -18,7 +18,7 @@ so a *downloaded* copy needs one extra click the first time; see [Download](#dow
 </p>
 
 <p align="center">
-  <a href="https://github.com/FutureWebservice/understanley/releases/latest"><img alt="Download Understanley.dmg" src="https://img.shields.io/badge/Download-Understanley.dmg%20%C2%B7%202.4%20MB-2ea44f?style=for-the-badge"></a>
+  <a href="https://github.com/FutureWebservice/understanley/releases/latest"><img alt="Download Understanley.dmg" src="https://img.shields.io/badge/Download-Understanley.dmg%20%C2%B7%202.5%20MB-2ea44f?style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -112,7 +112,7 @@ read, so nothing fails to open.
 
 **[Download Understanley.dmg →](https://github.com/FutureWebservice/understanley/releases/latest)**
 
-Open the DMG, drag Understanley to Applications, done. Roughly 2.4 MB.
+Open the DMG, drag Understanley to Applications, done. Roughly 2.5 MB.
 
 > **It is not signed with a paid Apple certificate**, so macOS will block the *first* launch with
 > *"cannot be opened because the developer cannot be verified."* That message is about the absence of
@@ -401,7 +401,7 @@ and pans without dropping frames on an M-series Mac.
 
 **Zero dependencies, deliberately.** `Package.swift` has no `dependencies:` array. The layout
 engines, JSON handling, extractors, Keychain access and HTTP clients are all Swift and system
-frameworks. This is not asceticism — it is why the app is 6 MB, starts instantly, builds in 25
+frameworks. This is not asceticism — it is why the app is 6.4 MB, starts instantly, builds in 25
 seconds and can be audited by one person in an afternoon. People point this at private source code;
 being auditable matters more than being convenient to write.
 
@@ -460,8 +460,8 @@ error type, which is how you tell "the model declined" from "the model is not av
 
 ## Status and benchmarks
 
-Current version **0.1.0** — first public release; see [CHANGELOG.md](CHANGELOG.md). Everything documented above is built, tested and
-working.
+Current version **0.1.1** — see [CHANGELOG.md](CHANGELOG.md). Everything documented above is built,
+tested and working.
 
 Measured on an M-series Mac, release build:
 
@@ -471,8 +471,8 @@ Measured on an M-series Mac, release build:
 | This repo (Swift) | 87 | 815 | 2 357 | 0.33 s | 0.002 s | 0.35 s |
 | Understand-Anything (TS + Python + docs) | 471 | 1 453 | 3 190 | 1.29 s | 0.001 s | 0.31 s |
 
-**136 tests passing. Zero warnings on a clean release build under `-strict-concurrency=complete`.
-Zero dependencies.** A 5.9 MB app and a 2.4 MB DMG.
+**142 tests passing. Zero warnings on a clean release build under `-strict-concurrency=complete`.
+Zero dependencies.** A 6.4 MB app and a 2.5 MB DMG.
 
 **Scope:** Figma/design mode and multi-language UI translation from upstream are not implemented and
 are not planned. Their node and edge types are still accepted on read, so a graph containing them

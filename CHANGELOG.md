@@ -2,7 +2,7 @@
 
 All notable changes to Understanley are recorded here.
 
-## Unreleased
+## v0.1.1 — settings that scroll
 
 **Settings, rebuilt.** One scrolling column of AI options became four tabs — Model, Project,
 Interface, About — because the sheet had more to say than fitted, and because the model settings are
