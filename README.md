@@ -25,7 +25,7 @@ so a *downloaded* copy needs one extra click the first time; see [Download](#dow
   <img alt="Platform" src="https://img.shields.io/badge/platform-macOS%2013%2B-111111">
   <img alt="Swift" src="https://img.shields.io/badge/Swift-5.9-F05138">
   <img alt="Dependencies" src="https://img.shields.io/badge/dependencies-zero-2ea44f">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-136%20passing-2ea44f">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-142%20passing-2ea44f">
   <img alt="Licence" src="https://img.shields.io/badge/licence-MIT-blue">
 </p>
 
@@ -314,6 +314,18 @@ and every description is journaled **per node**, so it is written once and then 
 re-analysis, a provider switch, an app update and a reopen. Node explain and graph-context ask use
 the same providers.
 
+### Settings
+
+Four tabs, and nothing hidden behind a policy page.
+
+- **Model** — the provider list, what each one costs, and an inline statement of exactly what
+  leaves the machine before you choose it. **Test connection** sends one throwaway prompt and
+  reports what came back, so "configured" and "actually working" stop being the same word.
+- **Project** — auto re-analysis, opt-in auto-describe, clearing written summaries, revealing the
+  graph file, clearing recents
+- **Interface** — canvas scroll direction and speed, and replaying the first-run tour
+- **About** — version, credits, and a plain list of what the app does with your code
+
 ### Keeping up with changes
 
 - **Diff mode** — changed files ring red, blast radius amber
@@ -577,3 +589,5 @@ deliberately, so graphs move freely between the two projects. Understanley is no
 endorsed by Egonex-AI. See [NOTICE](NOTICE).
 
 Understanley itself is MIT licensed — see [LICENSE](LICENSE).
+
+Built and maintained by **Shad** — [futurewebservice.de](https://futurewebservice.de).

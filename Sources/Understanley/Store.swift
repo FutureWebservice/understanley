@@ -64,18 +64,29 @@ final class Store: ObservableObject {
             syncWatcher()
         }
     }
+    /// Opt-in: run the enrichment pass by itself once analysis lands.
+    ///
+    /// Off by default, and deliberately so — it is the one setting that can
+    /// send source code somewhere without the user pressing anything, so it
+    /// has to be a decision rather than a default.
+    @Published var autoEnrich: Bool {
+        didSet { UserDefaults.standard.set(autoEnrich, forKey: Self.autoEnrichKey) }
+    }
+
     private let watcher = FileWatcher()
 
     private var analysisTask: Task<Void, Never>?
     private var enrichmentTask: Task<Void, Never>?
 
     private static let autoUpdateKey = "autoUpdate"
+    private static let autoEnrichKey = "autoEnrich"
     private static let recentsKey = "recentProjects"
     private static let providerKey = "providerID"
     private static let maxRecents = 10
 
     init() {
         autoUpdate = UserDefaults.standard.bool(forKey: Self.autoUpdateKey)
+        autoEnrich = UserDefaults.standard.bool(forKey: Self.autoEnrichKey)
         recentProjects = (UserDefaults.standard.array(forKey: Self.recentsKey) as? [String] ?? [])
             .filter { FileManager.default.fileExists(atPath: $0) }
         providerID = UserDefaults.standard.string(forKey: Self.providerKey)
@@ -423,6 +434,13 @@ final class Store: ObservableObject {
                     self.lastAnalysisDuration = Date().timeIntervalSince(started)
                     self.progressMessage = ""
                     self.refreshFreshness()
+                    // Only when the user asked for it, and only when there is
+                    // something left to describe — a re-analysis that carried
+                    // every summary across should cost nothing.
+                    if self.autoEnrich, self.activeProviderSpec != nil,
+                       self.undescribedCount > 0 {
+                        self.enrich()
+                    }
                 }
 
                 // Persist after publishing, so the window updates immediately

@@ -46,8 +46,9 @@ struct ScrollMonitor: ViewModifier {
             }
 
             let scale: CGFloat = event.hasPreciseScrollingDeltas ? 1 : 10
+            let tuned = scale * CanvasInput.speed * (CanvasInput.isInverted ? -1 : 1)
             onScroll(
-                CGSize(width: event.scrollingDeltaX * scale, height: event.scrollingDeltaY * scale),
+                CGSize(width: event.scrollingDeltaX * tuned, height: event.scrollingDeltaY * tuned),
                 point
             )
             return nil
@@ -69,8 +70,16 @@ struct ScrollMonitor: ViewModifier {
 
     /// Cursor position in the view's own coordinates, or nil when the pointer
     /// is outside it — so scrolling the sidebar does not pan the canvas.
+    ///
+    /// The monitor is app-wide, so "outside it" has to include *other windows*.
+    /// A sheet is its own `NSWindow` laid over the canvas, and its coordinates
+    /// land squarely inside the canvas frame recorded from the parent — which
+    /// is how every scroll aimed at Settings used to be swallowed as a pan,
+    /// leaving the provider list stuck. Sheets are therefore rejected on both
+    /// sides: events *from* a sheet, and events from a window that has one up.
     private func locate(_ event: NSEvent, in frame: CGRect) -> CGPoint? {
         guard let window = event.window else { return nil }
+        guard !window.isSheet, window.attachedSheet == nil else { return nil }
         let inWindow = event.locationInWindow
         // AppKit's origin is bottom-left; SwiftUI's global space is top-left.
         let flipped = CGPoint(x: inWindow.x, y: window.contentLayoutRect.height - inWindow.y)
@@ -85,5 +94,28 @@ extension View {
         zoom: @escaping (Double, CGPoint) -> Void
     ) -> some View {
         modifier(ScrollMonitor(onScroll: scroll, onZoom: zoom))
+    }
+}
+
+// MARK: - Preferences
+
+/// User-tunable canvas input, read fresh on every event.
+///
+/// Read rather than cached because Settings can change it while the canvas is
+/// on screen behind the sheet, and a stale multiplier would need a relaunch to
+/// take effect.
+enum CanvasInput {
+    static let invertedKey = "canvasScrollInverted"
+    static let speedKey = "canvasScrollSpeed"
+
+    /// Natural-direction panning by default: content follows the fingers.
+    static var isInverted: Bool { UserDefaults.standard.bool(forKey: invertedKey) }
+
+    /// Clamped, so a corrupt or hand-edited default cannot make the canvas
+    /// unusable — an unrecognised value reads as 1x.
+    static var speed: CGFloat {
+        let stored = UserDefaults.standard.object(forKey: speedKey) as? Double ?? 1
+        guard stored.isFinite else { return 1 }
+        return CGFloat(min(3, max(0.25, stored)))
     }
 }
